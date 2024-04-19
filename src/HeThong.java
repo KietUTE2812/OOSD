@@ -46,6 +46,115 @@ public class HeThong {
             }
         }
     }
+    public HeThong(Byte role){
+        if(role == 2 || role == 1)
+        {
+            hienthiMenuNhanVien();
+        }
+        else if (role ==0) {
+            hienThiMenuKhachHang();
+        }
+        else
+        {
+            System.out.println("Vai trò không hợp lệ");
+        }
+    }
+
+    public void hienThiMenuKhachHang()
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        // Menu hiển thị các chức năng
+        System.out.println("Menu:");
+        System.out.println("1. Xem sản phẩm");
+        System.out.println("2. Xem giỏ hàng");
+        System.out.println("3. Xem danh sách đơn hàng");
+        System.out.println("4. Chỉnh sửa tài khoản");
+        System.out.println("5. Đăng xuất");
+        System.out.println("0. Thoát");
+
+        // Lặp cho đến khi người dùng chọn chức năng Thoát
+        while (true) {
+            System.out.print("Chọn chức năng: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Đọc ký tự xuống dòng
+
+            switch (choice) {
+                case 1:
+                    datHang(scanner);
+                    break;
+                case 2:
+                    menuGioHang(scanner);
+                    break;
+                case 3:
+                    datHang(scanner);
+                    break;
+                case 4:
+                    datHang(scanner);
+                    break;
+                case 5:
+                    datHang(scanner);
+                    break;
+                case 6:
+                    datHang(scanner);
+                    break;
+                case 0:
+                    System.out.println("Thoát chương trình.");
+                    return;
+                default:
+                    System.out.println("Chức năng không hợp lệ.");
+            }
+        }
+    }
+
+    public void hienthiMenuNhanVien()
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        // Menu hiển thị các chức năng
+        System.out.println("Menu:");
+        System.out.println("1. Xem sản phẩm");
+        System.out.println("2. Cập nhật sản phẩm");
+        System.out.println("3. Thêm sản phẩm vào kho");
+        System.out.println("4. Chỉnh sửa tài khoản");
+        System.out.println("5. Cấp quyền truy cập");
+        System.out.println("6. Đăng xuất");
+        System.out.println("0. Thoát");
+
+        // Lặp cho đến khi người dùng chọn chức năng Thoát
+        while (true) {
+            System.out.print("Chọn chức năng: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Đọc ký tự xuống dòng
+
+            switch (choice) {
+                case 1:
+
+                    break;
+                case 2:
+                    Kho kho = new Kho();
+                    kho.capNhatSanPham();
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+                case 5:
+
+                    break;
+                case 6:
+
+                    break;
+                case 0:
+                    System.out.println("Thoát chương trình.");
+                    return;
+                default:
+                    System.out.println("Chức năng không hợp lệ.");
+            }
+        }
+    }
     public void datHang(Scanner scanner) {
         // Bước 2: Nhập các mã sản phẩm cần mua  ||  nhapSP()
         System.out.println("Nhập các mã sản phẩm cần mua (cách nhau bằng dấu ','): ");

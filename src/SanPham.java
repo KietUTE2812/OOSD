@@ -31,4 +31,8 @@ public class SanPham {
     public void setGiaSP(double giaSP) {
         this.giaSP = giaSP;
     }
+    @Override
+    public String toString() {
+        return "ID: " + maSP + ", Tên: " + tenSP + ", Giá: " + giaSP;
+    }
 }
