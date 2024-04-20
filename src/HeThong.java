@@ -4,45 +4,48 @@ public class HeThong {
     public HeThong(){
         Scanner scanner = new Scanner(System.in);
 
-        // Menu hiển thị các chức năng
-        System.out.println("Menu:");
-        System.out.println("1. Xem sản phẩm");
-        System.out.println("2. Xem giỏ hàng");
-        System.out.println("3. Xem danh sách đơn hàng");
-        System.out.println("4. Chỉnh sửa tài khoản");
-        System.out.println("5. Đăng xuất");
-        System.out.println("0. Thoát");
+        while(true)
+        {
+            // Menu hiển thị các chức năng
+            System.out.println("Menu:");
+            System.out.println("1. Xem sản phẩm");
+            System.out.println("2. Xem giỏ hàng");
+            System.out.println("3. Xem danh sách đơn hàng");
+            System.out.println("4. Chỉnh sửa tài khoản");
+            System.out.println("5. Đăng xuất");
+            System.out.println("0. Thoát");
 
-        // Lặp cho đến khi người dùng chọn chức năng Thoát
-        while (true) {
-            System.out.print("Chọn chức năng: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Đọc ký tự xuống dòng
+            // Lặp cho đến khi người dùng chọn chức năng Thoát
+            while (true) {
+                System.out.print("Chọn chức năng: ");
+                int choice = scanner.nextInt();
+                scanner.nextLine(); // Đọc ký tự xuống dòng
 
-            switch (choice) {
-                case 1:
-                    datHang(scanner);
-                    break;
-                case 2:
-                    menuGioHang(scanner);
-                    break;
-                case 3:
-                    datHang(scanner);
-                    break;
-                case 4:
-                    datHang(scanner);
-                    break;
-                case 5:
-                    datHang(scanner);
-                    break;
-                case 6:
-                    datHang(scanner);
-                    break;
-                case 0:
-                    System.out.println("Thoát chương trình.");
-                    return;
-                default:
-                    System.out.println("Chức năng không hợp lệ.");
+                switch (choice) {
+                    case 1:
+                        datHang(scanner);
+                        break;
+                    case 2:
+                        menuGioHang(scanner);
+                        break;
+                    case 3:
+                        datHang(scanner);
+                        break;
+                    case 4:
+                        datHang(scanner);
+                        break;
+                    case 5:
+                        datHang(scanner);
+                        break;
+                    case 6:
+                        datHang(scanner);
+                        break;
+                    case 0:
+                        System.out.println("Thoát chương trình.");
+                        return;
+                    default:
+                        System.out.println("Chức năng không hợp lệ.");
+                }
             }
         }
     }
@@ -170,7 +173,6 @@ public class HeThong {
                 System.out.print("Nhập số lượng cho sản phẩm " + productId + ": ");
                 int quantity = scanner.nextInt();
                 scanner.nextLine(); // Đọc ký tự xuống dòng
-
                 // Thêm sản phẩm vào đơn hàng
                 SanPhamTrongGioHang cartItem = new SanPhamTrongGioHang(product.getMaSP(),product.getTenSP(),product.getGiaSP() , quantity);
                 dh.add(cartItem);

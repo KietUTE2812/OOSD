@@ -81,8 +81,8 @@ public class Kho {
             }
             else{
                 System.out.println("Hủy xác nhận cập nhật, nhấn Enter để thoát");
-                HeThong heThong = new HeThong();
-                heThong.hienThiMenuKhachHang();
+                scanner.nextLine();
+                return;
 
             }
 
@@ -90,10 +90,9 @@ public class Kho {
         else
         {
             System.out.println("Không tìm thấy sản phẩm có mã " + maSanPhamCanTim);
-            System.out.print("Nhập 'q' để thoát: ");
-            HeThong heThong = new HeThong();
-            heThong.hienThiMenuKhachHang();
-
+            System.out.print("Nhập Enter để thoát: ");
+            scanner.nextLine();
+            return;
         }
     }
 
