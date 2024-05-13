@@ -35,8 +35,13 @@ public class HeThong {
             System.out.println("5. Đăng xuất");
             System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Đọc ký tự xuống dòng
+
+            int choice = 0;
+
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Đọc dòng trống sau khi nhập số
+            }
 
             switch (choice) {
                 case 1:

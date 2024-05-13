@@ -26,7 +26,7 @@ public class Main {
         khachHangList.add((kh3));
         dangNhap();
 
-        String username = UserSession.getInstance().getUsername();
+        //String username = UserSession.getInstance().getUsername();
 
         role = UserSession.getInstance().getRole();
         if (role == 2 || role == 1) {
@@ -42,7 +42,21 @@ public class Main {
     }
 
     public static void dangNhap() {
-        Scanner sc = new Scanner();
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhập tên người dùng: ");
+        String userName = sc.nextLine();
+
+        System.out.print("Nhập mật khẩu: ");
+        String password = sc.nextLine();
+        sc.close();
+        if (checkDangNhap(userName, password)) {
+            System.out.println("Đăng nhập thành công!");
+        } else {
+            System.out.println("Tên người dùng hoặc mật khẩu không chính xác.");
+        }
+
+
+
 
     }
 
