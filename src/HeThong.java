@@ -3,15 +3,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class HeThong {
-    List<SanPhamTrongGioHang> danhSachSP = new ArrayList<>();
-    GioHang cart = new GioHang();
+
+
     public HeThong() {
         Scanner scanner = new Scanner(System.in);
 
 
+        GioHang gioHang =new GioHang();
+        List<SanPhamTrongGioHang> danhSachSP = new ArrayList<>();
         danhSachSP.add(new SanPhamTrongGioHang("SP001", "Máy tính", 15.0, 2));
         danhSachSP.add(new SanPhamTrongGioHang("SP002", "Chuột", 25.0, 1));
-        cart.setDanhSachSP(danhSachSP); // Gán danh sách sản phẩm cho giỏ hàng
+        gioHang.setDanhSachSP(danhSachSP); // Gán danh sách sản phẩm cho giỏ hàng
+        gioHang.setMaKH("12");
+        gioHang.setMaGioHang("ma12");
 
         // Menu hiển thị các chức năng
         System.out.println("Menu:");
@@ -33,8 +37,8 @@ public class HeThong {
                     datHang(scanner);
                     break;
                 case 2:
-                    xemSanPhamGioHang(scanner,cart);
-                    menuGioHang(scanner);
+                    xemSanPhamGioHang(scanner,gioHang);
+                    menuGioHang(scanner,gioHang);
                     break;
                 case 3:
                     datHang(scanner);
@@ -149,7 +153,7 @@ public class HeThong {
         return new PhieuGiamGia(discountId, "SP001", 75, 500);
     }
 
-    private void menuGioHang(Scanner scanner) {
+    private void menuGioHang(Scanner scanner,GioHang gioHang) {
         System.out.println("--1. Đặt hàng");
         System.out.println("--2. Xóa sản phẩm");
         System.out.println("--3. Thoát");
@@ -163,7 +167,7 @@ public class HeThong {
                     datHang(scanner);
                     break;
                 case 2:
-                    xoaSanPhamKhoiGioHang(scanner,cart);
+                    xoaSanPhamKhoiGioHang(scanner,gioHang);
                     break;
                 case 3:
                     System.out.println("Thoát giỏ hàng.");
@@ -181,7 +185,7 @@ public class HeThong {
             System.out.println("Bạn đang thực hiện chức năng xem giỏ hàng!!! Nhấn Enter để tiếp tục");
             scanner.nextLine(); // Đọc ký tự Enter còn lại
             // Thực hiện bước 4
-            cart.displayCart();
+            cart.xemSanPhanGioHang();
         } else {
             System.out.println("Không có sản phẩm trong giỏ hàng.");
         }
@@ -210,19 +214,19 @@ public class HeThong {
     }
 
     // Phương thức xóa sản phẩm khỏi giỏ hàng
-    public void xoaSanPhamKhoiGioHang(Scanner scanner,GioHang gioHang) {
+    public void xoaSanPhamKhoiGioHang(Scanner scanner,GioHang gioHang   ) {
         String masp = nhapMaSanPham();
         if (kiemtraMaSanPham(masp, gioHang)) {
             gioHang.xoaSanPham(masp);
             System.out.println("Xóa sản phẩm thành công!!! Vui lòng nhấn Enter để quay về giỏ hàng.");
             scanner.nextLine(); // Đọc ký tự Enter còn lại
-            xemSanPhamGioHang(scanner,cart);
-            menuGioHang(scanner);
+            xemSanPhamGioHang(scanner,gioHang);
+            menuGioHang(scanner,gioHang);
         } else {
             System.out.println("Xóa sản phẩm thất bại!!! Vui lòng kiểm tra lại mã sản phẩm mà bạn vừa nhập và nhấn Enter để quay về giỏ hàng.");
             scanner.nextLine();
-            xemSanPhamGioHang(scanner,cart);
-            menuGioHang(scanner);
+            xemSanPhamGioHang(scanner,gioHang);
+            menuGioHang(scanner,gioHang);
         }
     }
 }
