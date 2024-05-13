@@ -10,8 +10,8 @@ public class HeThong {
 
         GioHang gioHang =new GioHang();
         List<SanPhamTrongGioHang> danhSachSP = new ArrayList<>();
-        danhSachSP.add(new SanPhamTrongGioHang("SP001", "Áo thun", 15.0, 2));
-        danhSachSP.add(new SanPhamTrongGioHang("SP002", "Quần jean", 25.0, 1));
+        danhSachSP.add(new SanPhamTrongGioHang("SP001", "Máy tính", 15.0, 2));
+        danhSachSP.add(new SanPhamTrongGioHang("SP002", "Chuột", 25.0, 1));
         gioHang.setDanhSachSP(danhSachSP); // Gán danh sách sản phẩm cho giỏ hàng
         gioHang.setMaKH("12");
         gioHang.setMaGioHang("ma12");
