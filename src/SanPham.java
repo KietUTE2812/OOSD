@@ -1,7 +1,10 @@
+import java.text.DecimalFormat;
+
 public class SanPham {
     private String maSP;
     private String tenSP;
     private double giaSP;
+
     public SanPham(String maSP, String tenSP, double giaSP) {
         this.maSP = maSP;
         this.tenSP = tenSP;
@@ -33,6 +36,12 @@ public class SanPham {
     }
     @Override
     public String toString() {
-        return "ID: " + maSP + ", Tên: " + tenSP + ", Giá: " + giaSP;
+        return "Mã sản phẩm: " + maSP + ", Tên sản phẩm: " + tenSP + ", Giá sản phẩm: " + chuyenDoiGiaTien(giaSP) +"VNĐ ";
+    }
+
+    public static String chuyenDoiGiaTien(double gia) {
+        // Định dạng số tiền
+        DecimalFormat dinhDang = new DecimalFormat("#,###");
+        return dinhDang.format(gia).replaceAll(",", "."); // Thay dấu phân cách hàng nghìn bằng dấu chấm
     }
 }
