@@ -510,7 +510,7 @@ public class HeThong {
         System.out.println("Số lượng sản phẩm trong kho đã được cập nhật.");
     }
 
-    public void datQuyenTruyCap()
+    public void datQuyenTruyCap(List<NhanVien> nhanVienList)
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -528,10 +528,10 @@ public class HeThong {
         // Xử lý chọn chức năng
         switch (choice) {
             case 1:
-                capQuyenTruyCap();
+                capQuyenTruyCap(nhanVienList);
                 break;
             case 2:
-                thuHoiQuyenTruyCap();
+                thuHoiQuyenTruyCap(nhanVienList);
                 break;
             default:
                 System.out.println("Lựa chọn không hợp lệ.");
@@ -539,7 +539,7 @@ public class HeThong {
         }
     }
 
-    private void thuHoiQuyenTruyCap() {
+    private void thuHoiQuyenTruyCap(List<NhanVien> nhanVienList) {
         System.out.println("Bạn đã chọn thu hồi quyền truy cập.");
         Scanner scanner = new Scanner(System.in);
         String maNV;
@@ -579,7 +579,7 @@ public class HeThong {
 
     }
 
-    public void capQuyenTruyCap() {
+    public void capQuyenTruyCap(List<NhanVien> nhanVienList) {
         System.out.println("Bạn đã chọn cấp quyền truy cập.");
         Scanner scanner = new Scanner(System.in);
         String maNV;
