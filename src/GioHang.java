@@ -1,25 +1,25 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class GioHang {
     private String maGioHang;
     private List<SanPhamTrongGioHang> danhSachSP;
     private double tongTien;
+    private String maKH;
 
-    public GioHang() {}
 
-    public GioHang(String maGioHang, List<SanPhamTrongGioHang> danhSachSP, double tongTien) {
-        this.maGioHang = maGioHang;
-        this.danhSachSP = danhSachSP;
-        this.tongTien = tongTien;
-    }
-
-    public String getMaGioHang() {
-        return maGioHang;
-    }
 
     public void setMaGioHang(String maGioHang) {
         this.maGioHang = maGioHang;
     }
+
+
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
+
+    public GioHang() {}
 
     public List<SanPhamTrongGioHang> getDanhSachSP() {
         return danhSachSP;
@@ -29,14 +29,7 @@ public class GioHang {
         this.danhSachSP = danhSachSP;
     }
 
-    public double getTongTien() {
-        return tongTien;
-    }
-
-    public void setTongTien(double tongTien) {
-        this.tongTien = tongTien;
-    }
-    public void displayCart() {
+    public void xemSanPhanGioHang() {
         System.out.println("Danh sách sản phẩm trong giỏ hàng:");
         for (SanPhamTrongGioHang item : danhSachSP) {
             System.out.println(item.getMaSP() + " - " + item.getTenSP() + " - Giá: " + item.getGiaSP() + " - Số lượng: " + item.getSoLuong());
