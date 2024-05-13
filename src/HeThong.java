@@ -9,12 +9,9 @@ public class HeThong {
         Scanner scanner = new Scanner(System.in);
 
 
-        danhSachSP.add(new SanPhamTrongGioHang("SP001", "Áo thun", 15.0, 2));
-        danhSachSP.add(new SanPhamTrongGioHang("SP002", "Quần jean", 25.0, 1));
+        danhSachSP.add(new SanPhamTrongGioHang("SP001", "Máy tính", 15.0, 2));
+        danhSachSP.add(new SanPhamTrongGioHang("SP002", "Chuột", 25.0, 1));
         cart.setDanhSachSP(danhSachSP); // Gán danh sách sản phẩm cho giỏ hàng
-
-
-
 
         // Menu hiển thị các chức năng
         System.out.println("Menu:");
