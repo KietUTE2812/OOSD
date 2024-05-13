@@ -380,6 +380,7 @@ public class HeThong {
     }
 
     public ArrayList<SanPham> DanhSachSanPham() {
+        sanPhams.clear();
         sanPhams.add(sp1);
         sanPhams.add(sp2);
         sanPhams.add(sp3);
@@ -388,6 +389,7 @@ public class HeThong {
     }
 
     public ArrayList<Kho> DanhSachSanPhamTrongKho() {
+        khos.clear();
         khos.add(k1);
         khos.add(k2);
         khos.add(k3);
