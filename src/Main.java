@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     static List<NhanVien> nhanVienList = new ArrayList<>();
     public static NhanVien nhanVien1 = new NhanVien("NV001", "Nguyen Van A", "0123456789", "nv1@example.com", "Address 1", (byte) 0, "user1", "pass1");
@@ -25,6 +22,4 @@ public class Main {
         HeThong ht = new HeThong(nhanVienList);
 
     }
-
-
 }
