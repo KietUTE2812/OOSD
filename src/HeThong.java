@@ -1063,7 +1063,7 @@ public class HeThong {
         do {
             System.out.print("Nhập mã sản phẩm (4 ký tự không có ký tự đặc biệt và không trùng): ");
             maSP = scanner.nextLine();
-        } while (!maSP.matches("[a-zA-Z0-9]{4}") || kho.daTonTaiMaSP(maSP));
+        } while (!maSP.matches("[a-zA-Z0-9]+") || kho.daTonTaiMaSP(maSP));
 
         // Yêu cầu nhập tên sản phẩm không chứa ký tự đặc biệt
         String tenSP;
