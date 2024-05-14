@@ -1,4 +1,5 @@
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +13,11 @@ public class HeThong {
     private static SanPham sp3 = new SanPham("SP003", "Laptop Lenovo", 200000000.0);
 
 
-    private static ArrayList<Kho> khos = new ArrayList<>();
-
-    private static   Kho k1 = new Kho("SP001", 20);
-    private static   Kho k2 = new Kho("SP002", 40);
-    private static   Kho k3 = new Kho("SP003", 10);
+//    private static ArrayList<Kho> khos = new ArrayList<>();
+//
+//    private static   Kho k1 = new Kho("SP001", 20);
+//    private static   Kho k2 = new Kho("SP002", 40);
+//    private static   Kho k3 = new Kho("SP003", 10);
 
     public HeThong(){
         Scanner scanner = new Scanner(System.in);
@@ -76,6 +77,9 @@ public class HeThong {
     }
 
     public HeThong(List<NhanVien> nhanVienList) {
+        kho.themSanPham(sp1, 21);
+        kho.themSanPham(sp2, 41);
+        kho.themSanPham(sp3, 11);
         Scanner scanner = new Scanner(System.in);
         // Hiển thị menu cho người dùng
         while (true) {
@@ -371,9 +375,9 @@ public class HeThong {
     //-------------------------------------- cập nhật sản phẩm
     public void capNhatSanPham() {
         ArrayList<SanPham> sanPhams = DanhSachSanPham();
-        ArrayList<Kho> khos = DanhSachSanPhamTrongKho();
+        //ArrayList<Kho> khos = DanhSachSanPhamTrongKho();
 
-        hienThiDanhSanPham(sanPhams, khos);
+        kho.hienThiDanhSachSanPham();
 
 
         Scanner scanner = new Scanner(System.in);
@@ -409,12 +413,12 @@ public class HeThong {
                     sanPhamTimKiem.setGiaSP(giaMoi);
                 }
                 if (soLuongMoi >= 0) {
-                    capNhatSoLuongSanPhamTrongKho(sanPhamTimKiem, soLuongMoi, khos);
+                    capNhatSoLuongSanPhamTrongKho(sanPhamTimKiem, soLuongMoi, kho.getDanhSachSanPham());
                 }
 
                 // Hiển thị thông tin sản phẩm sau khi cập nhật
-                System.out.println("Thông tin sản phẩm sau khi cập nhật:");
-                System.out.println(sanPhamTimKiem.toString() + "Số lương trong kho: " + soLuongMoi);
+                //System.out.println("Thông tin sản phẩm sau khi cập nhật:");
+                //System.out.println(sanPhamTimKiem.toString() + "Số lương trong kho: " + soLuongMoi);
                 System.out.println("Nhấn Enter để thoát");
                 scanner.nextLine();
 
@@ -442,26 +446,15 @@ public class HeThong {
         return sanPhams;
     }
 
-    public ArrayList<Kho> DanhSachSanPhamTrongKho() {
-        khos.clear();
-        khos.add(k1);
-        khos.add(k2);
-        khos.add(k3);
-        return khos;
-    }
+//    public ArrayList<Kho> DanhSachSanPhamTrongKho() {
+//        khos.clear();
+//        khos.add(k1);
+//        khos.add(k2);
+//        khos.add(k3);
+//        return khos;
+//    }
 
-    public void hienThiDanhSanPham(List<SanPham> sps, List<Kho> khos) {
-        for (SanPham sanpham : sps) {
-            for (Kho k : khos) {
-                if (k.getMaSanPham().equals(sanpham.getMaSP())) {
 
-                    System.out.println(sanpham.toString() + "Số lượng trong kho: " + k.getSoLuongSanPham());
-                    break;
-
-                }
-            }
-        }
-    }
 
     public SanPham timKiemSanPhamTheoMa(ArrayList<SanPham> sanPhams, String maSanPham) {
         for (SanPham sanPham : sanPhams) {
@@ -551,17 +544,28 @@ public class HeThong {
     }
 
 
-    public static void capNhatSoLuongSanPhamTrongKho(SanPham sanPham, int soLuongMoi, List<Kho> sanPhamTrongKhoList) {
+    public static void capNhatSoLuongSanPhamTrongKho(SanPham sanPham, int soLuongMoi, Map<SanPham, Integer> danhSachSanPham) {
+        if (danhSachSanPham.containsKey(sanPham)) {
+            // Lấy số lượng hiện tại của sản phẩm
+            int soLuongHienTai = danhSachSanPham.get(sanPham);
 
+            // Cập nhật số lượng mới cho sản phẩm
+            danhSachSanPham.put(sanPham, soLuongMoi);
+
+            System.out.println("Đã cập nhật số lượng của sản phẩm " + sanPham + " từ " + soLuongHienTai + " thành " + soLuongMoi);
+        } else {
+            // Xử lý khi sản phẩm không tồn tại trong Map
+            System.out.println("Sản phẩm " + sanPham + " không tồn tại trong danh sách.");
+        }
 
         // Duyệt qua danh sách sản phẩm trong kho để tìm sản phẩm có mã tương ứng và cập nhật số lượng mới
-        for (Kho sanPhamTrongKho : sanPhamTrongKhoList) {
-            if (sanPhamTrongKho.getMaSanPham().equalsIgnoreCase(sanPham.getMaSP())) {
-                sanPhamTrongKho.setSoLuongSanPham(soLuongMoi);
-                break;
-            }
-        }
-        System.out.println("Số lượng sản phẩm trong kho đã được cập nhật.");
+//        for (Kho sanPhamTrongKho : danhSachSanPham) {
+//            if (sanPhamTrongKho.getMaSanPham().equalsIgnoreCase(sanPham.getMaSP())) {
+//                sanPhamTrongKho.setSoLuongSanPham(soLuongMoi);
+//                break;
+//            }
+//        }
+        //System.out.println("Số lượng sản phẩm trong kho đã được cập nhật.");
     }
 
     public void datQuyenTruyCap(List<NhanVien> nhanVienList)
@@ -918,7 +922,7 @@ public class HeThong {
         }
 
     }
-    private Kho kho;
+    private Kho kho = new Kho();
     public void xemDanhSachSanPham(Scanner scanner) {
         kho.hienThiDanhSachSanPham();
         System.out.println("--1. Thêm sản phẩm vào kho");

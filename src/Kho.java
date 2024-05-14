@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,9 +57,15 @@ public class Kho {
             int soLuong = entry.getValue();
             System.out.println("Mã sản phẩm: " + sanPham.getMaSP() +
                     ", Tên sản phẩm: " + sanPham.getTenSP() +
-                    ", Giá sản phẩm: " + sanPham.getGiaSP() +
+                    ", Giá sản phẩm: " + chuyenDoiGiaTien( sanPham.getGiaSP() ) + "VNĐ" +
                     ", Số lượng: " + soLuong);
         }
+    }
+
+    public static String chuyenDoiGiaTien(double gia) {
+        // Định dạng số tiền
+        DecimalFormat dinhDang = new DecimalFormat("#,###");
+        return dinhDang.format(gia).replaceAll(",", "."); // Thay dấu phân cách hàng nghìn bằng dấu chấm
     }
 
 }

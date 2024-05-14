@@ -12,6 +12,8 @@ public class DonHang {
     private double tongTien;
     private String maThanhToan;
 
+    private String maKH;
+
     @Override
     public String toString() {
         String tt = "Đã Thanh Toán";
@@ -35,6 +37,16 @@ public class DonHang {
         this.danhSachSP = danhSachSP;
         this.tongTien = tongTien;
         this.maThanhToan = maThanhToan;
+    }
+
+    public DonHang(String maDH, LocalDate ngayDH, boolean trangThai, List<SanPhamTrongGioHang> danhSachSP, double tongTien, String maThanhToan, String maKH) {
+        this.maDH = maDH;
+        this.ngayDH = ngayDH;
+        this.trangThai = trangThai;
+        this.danhSachSP = danhSachSP;
+        this.tongTien = tongTien;
+        this.maThanhToan = maThanhToan;
+        this.maKH = maKH;
     }
 
     public void add(SanPhamTrongGioHang s) {
