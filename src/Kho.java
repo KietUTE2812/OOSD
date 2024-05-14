@@ -77,5 +77,8 @@ public class Kho {
         }
         return false;
     }
+    public boolean kiemTraKhoRong() {
+        return danhSachSanPham.isEmpty();
+    }
 
 }

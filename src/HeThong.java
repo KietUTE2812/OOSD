@@ -1233,6 +1233,10 @@ public class HeThong {
 
 
     public void xemDanhSachSanPham(Scanner scanner) {
+        if (kho.kiemTraKhoRong()) {
+            System.out.println("Không có sản phẩm nào trong kho.");
+            return;
+        }
         kho.hienThiDanhSachSanPham();
         System.out.println("--1. Thêm sản phẩm vào kho");
         System.out.println("--2. Cập Nhật Thông Tin Sản Phẩm ");
