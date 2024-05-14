@@ -13,6 +13,8 @@ public class HeThong {
     private static SanPham sp3 = new SanPham("SP003", "Laptop Lenovo", 200000000.0);
     private static SanPham sp4 = new SanPham("SP004", "Laptop Macbook", 300000000.0);
     private List<SanPham> dsSPDangCo = new ArrayList<>();
+    private List<SanPhamTrongGioHang> danhSachSPGioHang = new ArrayList<>();
+
     private GioHang gioHang = new GioHang();
     private static ArrayList<Kho> khos = new ArrayList<>();
     private Kho kho = new Kho();
@@ -38,12 +40,12 @@ public class HeThong {
 
 
         GioHang gioHang =new GioHang();
-        List<SanPhamTrongGioHang> danhSachSP = new ArrayList<>();
-        danhSachSP.add(new SanPhamTrongGioHang("SP001", "Máy tính", 15.0, 2));
-        danhSachSP.add(new SanPhamTrongGioHang("SP002", "Chuột", 25.0, 1));
-        gioHang.setDanhSachSP(danhSachSP); // Gán danh sách sản phẩm cho giỏ hàng
-        gioHang.setMaKH("12");
-        gioHang.setMaGioHang("ma12");
+//        List<SanPhamTrongGioHang> danhSachSP = new ArrayList<>();
+//        danhSachSP.add(new SanPhamTrongGioHang("SP001", "Máy tính", 15.0, 2));
+//        danhSachSP.add(new SanPhamTrongGioHang("SP002", "Chuột", 25.0, 1));
+//        gioHang.setDanhSachSP(danhSachSP); // Gán danh sách sản phẩm cho giỏ hàng
+//        gioHang.setMaKH("12");
+//        gioHang.setMaGioHang("ma12");
 
         // Menu hiển thị các chức năng
         System.out.println("Menu:");
@@ -56,7 +58,7 @@ public class HeThong {
 
         // Lặp cho đến khi người dùng chọn chức năng Thoát
         while (true) {
-            System.out.print("Chọn chức năng: ");
+            System.out.print("Chọn chức năngME: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Đọc ký tự xuống dòng
 
@@ -65,7 +67,7 @@ public class HeThong {
                     xemSanPham(scanner, kho);
                     break;
                 case 2:
-                    menuGioHang(scanner, gioHang);
+                    menuGioHang(scanner);
                     break;
                 case 3:
                     hienThiDanhSachDonHang( scanner);
@@ -283,8 +285,8 @@ public class HeThong {
         // Ở đây chỉ cần trả về một sản phẩm tạm thời để minh họa
         return new PhieuGiamGia(discountId, "SP001", 75, 500);
     }
-    private void menuGioHang(Scanner scanner, GioHang gioHang){
-        gioHang.hienGioHang();
+    private void menuGioHang(Scanner scanner){
+        gioHang.xemSanPhamGioHang();
         while (true) {
             System.out.println("--1. Đặt hàng");
             System.out.println("--2. Xóa sản phẩm");
@@ -298,7 +300,8 @@ public class HeThong {
                     datHang(scanner);
                     break;
                 case 2:
-                    datHang(scanner);
+                    xoaSanPhamTuGioHang(scanner);
+                    gioHang.xemSanPhamGioHang();
                     break;
                 case 3:
                     System.out.println("Thoát giỏ hàng.");
@@ -358,20 +361,7 @@ public class HeThong {
             System.out.println("Sản phẩm: " + sp.toString());
         }
     }
-    public void xemSanPhamGioHang(Scanner scanner, GioHang cart) {
 
-        // Kiểm tra nếu danh sách sản phẩm không null thì mới hiển thị giỏ hàng
-        if (cart.getDanhSachSP() != null) {
-            System.out.println("Bạn đang thực hiện chức năng xem giỏ hàng!!! Nhấn Enter để tiếp tục");
-            scanner.nextLine(); // Đọc ký tự Enter còn lại
-            // Thực hiện bước 4
-            cart.xemSanPhanGioHang();
-        } else {
-            System.out.println("Không có sản phẩm trong giỏ hàng.");
-        }
-
-        // Thực hiện bước 5
-    }
 
     public String nhapMaSanPham() {
         System.out.println("Yêu cầu người dùng nhập mã sản phẩm cần xóa trong giỏ hàng và nhấn phím Enter:");
@@ -381,7 +371,7 @@ public class HeThong {
     }
 
     // Phương thức kiểm tra mã sản phẩm có tồn tại trong giỏ hàng hay không
-    public boolean kiemtraMaSanPham(String maSP, GioHang gioHang) {
+    public boolean kiemtraMaSanPham(String maSP) {
         List<SanPhamTrongGioHang> danhSachSP = gioHang.getDanhSachSP();
         if (danhSachSP != null) {
             for (SanPhamTrongGioHang sp : danhSachSP) {
@@ -394,19 +384,14 @@ public class HeThong {
     }
 
     // Phương thức xóa sản phẩm khỏi giỏ hàng
-    public void xoaSanPhamKhoiGioHang(Scanner scanner,GioHang gioHang) {
-        String masp = nhapMaSanPham();
-        if (kiemtraMaSanPham(masp, gioHang)) {
-            gioHang.xoaSanPham(masp);
-            System.out.println("Xóa sản phẩm thành công!!! Vui lòng nhấn Enter để quay về giỏ hàng.");
-            scanner.nextLine(); // Đọc ký tự Enter còn lại
-            xemSanPhamGioHang(scanner,gioHang);
-            menuGioHang(scanner, gioHang);
+    public void xoaSanPhamTuGioHang(Scanner scanner) {
+        String maSanPham = nhapMaSanPham();
+
+        if (kiemtraMaSanPham(maSanPham)) {
+            gioHang.xoaSanPham(maSanPham);
+            System.out.println("Sản phẩm có mã " + maSanPham + " đã được xóa khỏi giỏ hàng.");
         } else {
-            System.out.println("Xóa sản phẩm thất bại!!! Vui lòng kiểm tra lại mã sản phẩm mà bạn vừa nhập và nhấn Enter để quay về giỏ hàng.");
-            scanner.nextLine();
-            xemSanPhamGioHang(scanner,gioHang);
-            menuGioHang(scanner, gioHang);
+            System.out.println("Không tìm thấy sản phẩm có mã " + maSanPham + " trong giỏ hàng.");
         }
     }
 

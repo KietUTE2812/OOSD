@@ -10,8 +10,8 @@ public class Main {
 
     public static List<KhachHang> khachHangList = new ArrayList<>();
 
-    public static KhachHang kh1 = new KhachHang("KH001", "Dang Thanh Binh", "0399915678", "abc@gmail.com", "HCM", "thanhbinhne", "123");
-    public static KhachHang kh2 = new KhachHang("thanhbinhdang", "123");
+    public static KhachHang kh1 = new KhachHang("KH001", "Dang Thanh Binh", "0399915678", "abc@gmail.com", "HCM", "1", "1");
+    public static KhachHang kh2 = new KhachHang("thanhbinhdang", "thanhbinhdang");
     public static KhachHang kh3 = new KhachHang("thanhbinhdayne", "123");
 
     public static Byte role;
