@@ -26,10 +26,6 @@ public class NhanVien {
         return maNV;
     }
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
-    }
-
     public String getHoVaTen() {
         return hoVaTen;
     }
@@ -74,9 +70,6 @@ public class NhanVien {
         return taiKhoan;
     }
 
-    public void setTaiKhoan(String taiKhoan) {
-        this.taiKhoan = taiKhoan;
-    }
 
     public String getMatKhau() {
         return matKhau;
