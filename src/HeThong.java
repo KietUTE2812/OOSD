@@ -1,6 +1,23 @@
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+import java.time.LocalDate;
 
 public class HeThong {
+
+    private static ArrayList<SanPham> sanPhams = new ArrayList<>();
+    private static SanPham sp1 = new SanPham("SP001", "Laptop Dell", 18000000.0);
+    private static SanPham sp2 = new SanPham("SP002", "Laptop Asus", 15000000.0);
+    private static SanPham sp3 = new SanPham("SP003", "Laptop Lenovo", 200000000.0);
+
+
+    private static ArrayList<Kho> khos = new ArrayList<>();
+
+    private static   Kho k1 = new Kho("SP001", 20);
+    private static   Kho k2 = new Kho("SP002", 40);
+    private static   Kho k3 = new Kho("SP003", 10);
+
     public HeThong(){
         Scanner scanner = new Scanner(System.in);
 
@@ -210,19 +227,19 @@ public class HeThong {
     }
 
     // Phương thức xóa sản phẩm khỏi giỏ hàng
-    public void xoaSanPhamKhoiGioHang(Scanner scanner,GioHang gioHang   ) {
+    public void xoaSanPhamKhoiGioHang(Scanner scanner,GioHang gioHang) {
         String masp = nhapMaSanPham();
         if (kiemtraMaSanPham(masp, gioHang)) {
             gioHang.xoaSanPham(masp);
             System.out.println("Xóa sản phẩm thành công!!! Vui lòng nhấn Enter để quay về giỏ hàng.");
             scanner.nextLine(); // Đọc ký tự Enter còn lại
             xemSanPhamGioHang(scanner,gioHang);
-            menuGioHang(scanner,gioHang);
+            menuGioHang(scanner);
         } else {
             System.out.println("Xóa sản phẩm thất bại!!! Vui lòng kiểm tra lại mã sản phẩm mà bạn vừa nhập và nhấn Enter để quay về giỏ hàng.");
             scanner.nextLine();
             xemSanPhamGioHang(scanner,gioHang);
-            menuGioHang(scanner,gioHang);
+            menuGioHang(scanner);
         }
     }
 
