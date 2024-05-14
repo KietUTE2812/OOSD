@@ -47,4 +47,7 @@ public class SanPhamTrongGioHang {
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
     }
+
+
+
 }
