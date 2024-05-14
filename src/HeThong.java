@@ -1165,60 +1165,70 @@ public class HeThong {
     //---------
     public void themSanPhamVaoKho(Scanner scanner) {
         System.out.println("Thêm sản phẩm vào kho:");
+        String maSanPham = nhapMaSanPham(scanner, kho);
+        String tenSanPham = nhapTenSanPham(scanner);
+        double giaSanPham = nhapGiaSanPham(scanner);
+        int soLuongSanPham = nhapSoLuongSanPham(scanner);
 
-        // Yêu cầu nhập mã sản phẩm hợp lệ
-        String maSP;
+        SanPham sp = new SanPham(maSanPham, tenSanPham, giaSanPham);
+        hienThiThongTinSanPhamMoi(sp, soLuongSanPham);
+        if (xacNhanThemSanPham(scanner)) {
+            kho.themSanPham(sp, soLuongSanPham);
+            System.out.println("Sản phẩm đã được thêm vào kho thành công.");
+        } else {
+            System.out.println("Không thêm sản phẩm vào kho.");
+        }
+    }
+    public void hienThiThongTinSanPhamMoi(SanPham sp, int soLuong) {
+        System.out.println("Thông tin sản phẩm mới:");
+        System.out.println("Mã sản phẩm: " + sp.getMaSP());
+        System.out.println("Tên sản phẩm: " + sp.getTenSP());
+        System.out.println("Giá sản phẩm: " + sp.getGiaSP());
+        System.out.println("Số lượng sản phẩm: " + soLuong);
+    }
+
+    public String nhapMaSanPham(Scanner scanner, Kho kho) {
+        String maSanPham;
         do {
-            System.out.print("Nhập mã sản phẩm (4 ký tự không có ký tự đặc biệt và không trùng): ");
-            maSP = scanner.nextLine();
-        } while (!maSP.matches("[a-zA-Z0-9]+") || kho.daTonTaiMaSP(maSP));
+            System.out.print("Nhập mã sản phẩm (không có ký tự đặc biệt và không trùng): ");
+            maSanPham = scanner.nextLine();
+        } while (!maSanPham.matches("[a-zA-Z0-9]+") || kho.daTonTaiMaSP(maSanPham));
+        return maSanPham;
+    }
 
-        // Yêu cầu nhập tên sản phẩm không chứa ký tự đặc biệt
-        String tenSP;
+    public String nhapTenSanPham(Scanner scanner) {
+        String tenSanPham;
         do {
             System.out.print("Nhập tên sản phẩm (không chứa ký tự đặc biệt): ");
-            tenSP = scanner.nextLine();
-        } while (!tenSP.matches("[a-zA-Z0-9\\s]+"));
+            tenSanPham = scanner.nextLine();
+        } while (!tenSanPham.matches("[a-zA-Z0-9\\s]+"));
+        return tenSanPham;
+    }
 
-        // Yêu cầu nhập giá sản phẩm không âm
-        double giaSP;
+    public double nhapGiaSanPham(Scanner scanner) {
+        double giaSanPham;
         do {
             System.out.print("Nhập giá sản phẩm (không âm): ");
-            giaSP = scanner.nextDouble();
+            giaSanPham = scanner.nextDouble();
             scanner.nextLine(); // Đọc ký tự xuống dòng
-        } while (giaSP < 0);
+        } while (giaSanPham < 0);
+        return giaSanPham;
+    }
 
-        // Yêu cầu nhập số lượng sản phẩm không âm
-        int soLuong;
+    public int nhapSoLuongSanPham(Scanner scanner) {
+        int soLuongSanPham;
         do {
             System.out.print("Nhập số lượng sản phẩm (không âm): ");
-            soLuong = scanner.nextInt();
+            soLuongSanPham = scanner.nextInt();
             scanner.nextLine(); // Đọc ký tự xuống dòng
-        } while (soLuong < 0);
+        } while (soLuongSanPham < 0);
+        return soLuongSanPham;
+    }
 
-        // Tạo đối tượng sản phẩm mới
-        SanPham sanPham = new SanPham(maSP, tenSP, giaSP);
-
-        // Hiển thị thông tin sản phẩm mới
-        System.out.println("Thông tin sản phẩm mới:");
-        System.out.println("Mã sản phẩm: " + sanPham.getMaSP());
-        System.out.println("Tên sản phẩm: " + sanPham.getTenSP());
-        System.out.println("Giá sản phẩm: " + sanPham.getGiaSP());
-        System.out.println("Số lượng sản phẩm: " + soLuong);
-
-        //Chương trinh hỏi người dunng có xác nhận thêm sản phẩm vào kho
+    public boolean xacNhanThemSanPham(Scanner scanner) {
         System.out.print("Bạn có muốn thêm sản phẩm vào kho không? (Y/N): ");
         String confirm = scanner.nextLine();
-
-        if (confirm.equalsIgnoreCase("Y")) {
-            kho.themSanPham(sanPham, soLuong);
-            System.out.println("Sản phẩm đã được thêm vào kho thành công.");
-        } else if (confirm.equalsIgnoreCase("N")) {
-            System.out.println("Không thêm sản phẩm vào kho.");
-        } else {
-            System.out.println("Lựa chọn không hợp lệ. Không thêm sản phẩm vào kho.");
-        }
-
+        return confirm.equalsIgnoreCase("Y");
     }
 
 
