@@ -31,8 +31,4 @@ public class Kho {
         this.soLuongSanPham = soLuongSanPham;
     }
 
-
-
-
-
 }

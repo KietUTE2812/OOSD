@@ -48,13 +48,13 @@ public class Main {
 
         System.out.print("Nhập mật khẩu: ");
         String password = sc.nextLine();
-        sc.close();
+
         if (checkDangNhap(userName, password)) {
-            System.out.println("Đăng nhập thành công!");
+            System.out.println("Đăng nhập thành công! Nhấn Enter để tiếp tục.");
         } else {
             System.out.println("Tên người dùng hoặc mật khẩu không chính xác.");
         }
-
+        sc.nextLine();
 
 
 
