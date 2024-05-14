@@ -12,6 +12,19 @@ public class DonHang {
     private double tongTien;
     private String maThanhToan;
 
+    public double tinhTongTien()
+    {
+        double tongTien = 0;
+        for(SanPhamTrongGioHang sp : danhSachSP)
+        {
+            tongTien += sp.getSoLuong()*sp.getGiaSP();
+        }
+        return tongTien;
+    }
+    public void generateMaDH() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        maDH = "MaDH" + timeStamp;
+    }
     private String maKH;
 
     @Override
@@ -93,6 +106,7 @@ public class DonHang {
 
 
     public double getTongTien() {
+        this.tongTien = tinhTongTien();
         return tongTien;
     }
 
@@ -105,6 +119,7 @@ public class DonHang {
 
 
     public DonHang() {
+        generateMaDH();
     }
 
 
@@ -118,4 +133,5 @@ public class DonHang {
         String ngayThangNam = ngay.format(dinhDang);
         return ngayThangNam;
     }
+
 }
