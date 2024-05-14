@@ -3,6 +3,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class DonHang {
     private String maDH;
@@ -11,6 +14,21 @@ public class DonHang {
     private List<SanPhamTrongGioHang> danhSachSP = new ArrayList();
     private double tongTien;
     private String maThanhToan;
+
+    public double tinhTongTien()
+    {
+        double tongTien = 0;
+        for(SanPhamTrongGioHang sp : danhSachSP)
+        {
+            tongTien += sp.getSoLuong()*sp.getGiaSP();
+        }
+        return tongTien;
+    }
+    public void generateMaDH() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        maDH = "MaDH" + timeStamp;
+    }
+    private String maKH;
 
     @Override
     public String toString() {
@@ -35,6 +53,24 @@ public class DonHang {
         this.danhSachSP = danhSachSP;
         this.tongTien = tongTien;
         this.maThanhToan = maThanhToan;
+    }
+
+    public DonHang(String maDH, LocalDate ngayDH, boolean trangThai, List<SanPhamTrongGioHang> danhSachSP, double tongTien, String maThanhToan, String maKH) {
+        this.maDH = maDH;
+        this.ngayDH = ngayDH;
+        this.trangThai = trangThai;
+        this.danhSachSP = danhSachSP;
+        this.tongTien = tongTien;
+        this.maThanhToan = maThanhToan;
+        this.maKH = maKH;
+    }
+
+    public String getMaKH() {
+        return maKH;
+    }
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
     }
 
     public void add(SanPhamTrongGioHang s) {
@@ -73,6 +109,7 @@ public class DonHang {
 
 
     public double getTongTien() {
+        this.tongTien = tinhTongTien();
         return tongTien;
     }
 
@@ -85,6 +122,7 @@ public class DonHang {
 
 
     public DonHang() {
+        generateMaDH();
     }
 
 
@@ -98,4 +136,5 @@ public class DonHang {
         String ngayThangNam = ngay.format(dinhDang);
         return ngayThangNam;
     }
+
 }

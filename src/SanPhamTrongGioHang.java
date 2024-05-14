@@ -8,12 +8,21 @@ public class SanPhamTrongGioHang {
     public void capNhatGia(int phanTramGiam){
         giaSP -= giaSP*phanTramGiam;
     }
-
     public SanPhamTrongGioHang(String maSP, String tenSP, double giaSP, int soLuong) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.giaSP = giaSP;
         this.soLuong = soLuong;
+    }
+
+    @Override
+    public String toString() {
+        return "SanPhamTrongGioHang{" +
+                "maSP='" + maSP + '\'' +
+                ", tenSP='" + tenSP + '\'' +
+                ", giaSP=" + giaSP +
+                ", soLuong=" + soLuong +
+                '}';
     }
 
     public String getMaSP() {

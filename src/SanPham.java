@@ -34,9 +34,10 @@ public class SanPham {
     public void setGiaSP(double giaSP) {
         this.giaSP = giaSP;
     }
+
     @Override
     public String toString() {
-        return "Mã sản phẩm: " + maSP + ", Tên sản phẩm: " + tenSP + ", Giá sản phẩm: " + chuyenDoiGiaTien(giaSP) +"VNĐ ";
+        return "Mã sản phẩm: " + maSP + ", Tên sản phẩm: " + tenSP + ", Giá sản phẩm: " + chuyenDoiGiaTien(giaSP) + "VNĐ ";
     }
 
     public static String chuyenDoiGiaTien(double gia) {

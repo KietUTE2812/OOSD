@@ -10,8 +10,8 @@ public class Main {
 
     public static List<KhachHang> khachHangList = new ArrayList<>();
 
-    public static KhachHang kh1 = new KhachHang("thanhbinhne", "123");
-    public static KhachHang kh2 = new KhachHang("thanhbinhdang", "123");
+    public static KhachHang kh1 = new KhachHang("KH001", "Dang Thanh Binh", "0399915678", "abc@gmail.com", "HCM", "1", "1");
+    public static KhachHang kh2 = new KhachHang("thanhbinhdang", "thanhbinhdang");
     public static KhachHang kh3 = new KhachHang("thanhbinhdayne", "123");
 
     public static Byte role;
@@ -57,7 +57,6 @@ public class Main {
         sc.nextLine();
 
 
-
     }
 
     public static boolean checkDangNhap(String username, String pass) {
@@ -74,11 +73,10 @@ public class Main {
                 return true;
             }
         }
-        for (KhachHang kh :khachHangList)
-        {
+        for (KhachHang kh : khachHangList) {
             if (username.equals(kh.getTaiKhoan()) && pass.equals(kh.getMatKhau())) {
                 UserSession.getInstance().setRole((byte) 0);
-                UserSession.getInstance().setMaNV(kh.getMaKH());
+                UserSession.getInstance().setMaKH(kh.getMaKH());
                 UserSession.getInstance().setDiaChi(kh.getTaiKhoan());
                 UserSession.getInstance().setMatKhau(kh.getMatKhau());
                 UserSession.getInstance().setDiaChi(kh.getDiaChi());
