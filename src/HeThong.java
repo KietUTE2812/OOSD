@@ -10,6 +10,7 @@ public class HeThong {
     private static SanPham sp1 = new SanPham("SP001", "Laptop Dell", 18000000.0);
     private static SanPham sp2 = new SanPham("SP002", "Laptop Asus", 15000000.0);
     private static SanPham sp3 = new SanPham("SP003", "Laptop Lenovo", 200000000.0);
+    private static SanPham sp4 = new SanPham("SP004", "Laptop Macbook", 300000000.0);
 
 
     private static ArrayList<Kho> khos = new ArrayList<>();
@@ -17,6 +18,7 @@ public class HeThong {
     private static   Kho k1 = new Kho("SP001", 20);
     private static   Kho k2 = new Kho("SP002", 40);
     private static   Kho k3 = new Kho("SP003", 10);
+    private static   Kho k4 = new Kho("SP004", 15);
 
     public HeThong(){
         Scanner scanner = new Scanner(System.in);
