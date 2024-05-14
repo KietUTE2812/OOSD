@@ -1,6 +1,11 @@
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class DonHang {
     private String maDH;
@@ -9,6 +14,64 @@ public class DonHang {
     private List<SanPhamTrongGioHang> danhSachSP = new ArrayList();
     private double tongTien;
     private String maThanhToan;
+
+    public double tinhTongTien()
+    {
+        double tongTien = 0;
+        for(SanPhamTrongGioHang sp : danhSachSP)
+        {
+            tongTien += sp.getSoLuong()*sp.getGiaSP();
+        }
+        return tongTien;
+    }
+    public void generateMaDH() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        maDH = "MaDH" + timeStamp;
+    }
+    private String maKH;
+
+    @Override
+    public String toString() {
+        String tt = "Đã Thanh Toán";
+        if (!trangThai  ) tt = "Chưa Thanh Toán";
+        String ngayDathang = convertDay(ngayDH);
+        return "DonHang: " +
+                "Mã đơn hàng: " + maDH + '\'' +
+                ", Ngày đặt hàng: " + ngayDathang +
+                ", Trạng thái: " + tt +
+                ", Tổng tiền: " + tongTien + "VNĐ" +
+                ", Mã thanh toán: " + maThanhToan + '\'' +
+                '}';
+    }
+
+
+
+    public DonHang(String maDH, LocalDate ngayDH, boolean trangThai, List<SanPhamTrongGioHang> danhSachSP, double tongTien, String maThanhToan) {
+        this.maDH = maDH;
+        this.ngayDH = ngayDH;
+        this.trangThai = trangThai;
+        this.danhSachSP = danhSachSP;
+        this.tongTien = tongTien;
+        this.maThanhToan = maThanhToan;
+    }
+
+    public DonHang(String maDH, LocalDate ngayDH, boolean trangThai, List<SanPhamTrongGioHang> danhSachSP, double tongTien, String maThanhToan, String maKH) {
+        this.maDH = maDH;
+        this.ngayDH = ngayDH;
+        this.trangThai = trangThai;
+        this.danhSachSP = danhSachSP;
+        this.tongTien = tongTien;
+        this.maThanhToan = maThanhToan;
+        this.maKH = maKH;
+    }
+
+    public String getMaKH() {
+        return maKH;
+    }
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
 
     public void add(SanPhamTrongGioHang s) {
         danhSachSP.add(s);
@@ -25,52 +88,53 @@ public class DonHang {
         return maDH;
     }
 
-    public void setMaDH(String maDH) {
-        this.maDH = maDH;
-    }
+
 
     public LocalDate getNgayDH() {
         return ngayDH;
     }
 
-    public void setNgayDH(LocalDate ngayDH) {
-        this.ngayDH = ngayDH;
-    }
+
 
     public boolean isTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
-        this.trangThai = trangThai;
-    }
+
 
     public List<SanPhamTrongGioHang> getDanhSachSP() {
         return danhSachSP;
     }
 
-    public void setDanhSachSP(List<SanPhamTrongGioHang> danhSachSP) {
-        this.danhSachSP = danhSachSP;
-    }
+
 
     public double getTongTien() {
+        this.tongTien = tinhTongTien();
         return tongTien;
     }
 
-    public void setTongTien(double tongTien) {
-        this.tongTien = tongTien;
-    }
+
 
     public String getMaThanhToan() {
         return maThanhToan;
     }
 
-    public void setMaThanhToan(String maThanhToan) {
-        this.maThanhToan = maThanhToan;
-    }
+
 
     public DonHang() {
+        generateMaDH();
     }
-    public DonHang(String maDH, LocalDate ngayDH) {}
+
+
+
+
+
+    public static String convertDay(LocalDate ngay) {
+        // Định dạng ngày
+        DateTimeFormatter dinhDang = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        // Chuyển đổi LocalDate thành chuỗi
+        String ngayThangNam = ngay.format(dinhDang);
+        return ngayThangNam;
+    }
 
 }

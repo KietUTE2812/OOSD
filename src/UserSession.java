@@ -1,36 +1,48 @@
-public class KhachHang {
-    private String maKH;
+
+public class UserSession {
+    private static UserSession instance;
+    private String username;
+    private Byte role;
+    private String MaNV;
     private String hoVaTen;
     private String sDT;
     private String email;
     private String diaChi;
     private String taiKhoan;
     private String matKhau;
+    private String MaKH;
+    private UserSession() {}
 
-
-
-    public KhachHang(String maKH, String hoVaTen, String sDT, String email, String diaChi, String taiKhoan, String matKhau) {
-        this.maKH = maKH;
-        this.hoVaTen = hoVaTen;
-        this.sDT = sDT;
-        this.email = email;
-        this.diaChi = diaChi;
-        this.taiKhoan = taiKhoan;
-        this.matKhau = matKhau;
+    public static UserSession getInstance() {
+        if (instance == null) {
+            instance = new UserSession();
+        }
+        return instance;
     }
 
-    public KhachHang(String taiKhoan, String matKhau) {
-        this.taiKhoan = taiKhoan;
-        this.matKhau = matKhau;
+    public String getUsername() {
+        return username;
     }
 
-    public KhachHang() {
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getMaKH() {
-        return maKH;
+    public Byte getRole() {
+        return role;
     }
 
+    public void setRole(Byte role) {
+        this.role = role;
+    }
+
+    public String getMaNV() {
+        return MaNV;
+    }
+
+    public void setMaNV(String maNV) {
+        MaNV = maNV;
+    }
 
     public String getHoVaTen() {
         return hoVaTen;
@@ -67,6 +79,11 @@ public class KhachHang {
     public String getTaiKhoan() {
         return taiKhoan;
     }
+
+    public void setTaiKhoan(String taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
+
     public String getMatKhau() {
         return matKhau;
     }
@@ -75,5 +92,12 @@ public class KhachHang {
         this.matKhau = matKhau;
     }
 
+    public String getMaKH() {
+        return MaKH;
+    }
+
+    public void setMaKH(String maKH) {
+        MaKH = maKH;
+    }
 
 }
