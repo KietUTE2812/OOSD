@@ -22,7 +22,7 @@ public class HeThong {
 
     public HeThong(){
         Scanner scanner = new Scanner(System.in);
-        KhachHang khachHang=new KhachHang(UserSession.getInstance().getMaKH(), UserSession.getInstance().getHoVaTen(),UserSession.getInstance().getsDT(), UserSession.getInstance().getDiaChi(), UserSession.getInstance().getDiaChi(), UserSession.getInstance().getTaiKhoan(), UserSession.getInstance().getMatKhau())
+        KhachHang khachHang=new KhachHang(UserSession.getInstance().getMaKH(), UserSession.getInstance().getHoVaTen(),UserSession.getInstance().getsDT(), UserSession.getInstance().getDiaChi(), UserSession.getInstance().getDiaChi(), UserSession.getInstance().getTaiKhoan(), UserSession.getInstance().getMatKhau());
         GioHang gioHang =new GioHang();
         List<SanPhamTrongGioHang> danhSachSP = new ArrayList<>();
         danhSachSP.add(new SanPhamTrongGioHang("SP001", "Áo thun", 15.0, 2));
