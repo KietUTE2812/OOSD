@@ -1,9 +1,9 @@
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 import java.util.Map;
+import java.util.Scanner;
 
 public class HeThong {
 
@@ -16,10 +16,6 @@ public class HeThong {
     private GioHang gioHang = new GioHang();
     private static ArrayList<Kho> khos = new ArrayList<>();
     private Kho kho = new Kho();
-    private static   Kho k1 = new Kho("SP001", 20);
-    private static   Kho k2 = new Kho("SP002", 40);
-    private static   Kho k3 = new Kho("SP003", 10);
-    private static   Kho k4 = new Kho("SP004", 15);
 
     public HeThong(){
 
@@ -38,8 +34,8 @@ public class HeThong {
 
         GioHang gioHang =new GioHang();
         List<SanPhamTrongGioHang> danhSachSP = new ArrayList<>();
-        danhSachSP.add(new SanPhamTrongGioHang("SP001", "Áo thun", 15.0, 2));
-        danhSachSP.add(new SanPhamTrongGioHang("SP002", "Quần jean", 25.0, 1));
+//        danhSachSP.add(new SanPhamTrongGioHang("SP001", "Áo thun", 15.0, 2));
+//        danhSachSP.add(new SanPhamTrongGioHang("SP002", "Quần jean", 25.0, 1));
         gioHang.setDanhSachSP(danhSachSP); // Gán danh sách sản phẩm cho giỏ hàng
         gioHang.setMaKH("12");
         gioHang.setMaGioHang("ma12");
@@ -494,37 +490,34 @@ public class HeThong {
     }
 
     //-------------------------------------- cập nhật sản phẩm
-    public void capNhatSanPham() {
-        ArrayList<SanPham> sanPhams = DanhSachSanPham();
-        kho.hienThiDanhSachSanPham();
 
+    public String xacNhanCapNhat()
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Xác nhận cập nhật (Y): ");
+        String xacNhan = scanner.nextLine();
+        return xacNhan;
+    }
+    public void capNhatSanPham() {
 
         Scanner scanner = new Scanner(System.in);
-
-        // Khởi tạo sản phẩm cần cập nhật
         SanPham sanPhamTimKiem = null;
+        kho.hienThiDanhSachSanPham();
+        Map<SanPham, Integer> danhSachSanPham = kho.getDanhSachSanPham();
 
         // Nhập mã sản phẩm cần tìm kiếm
         System.out.print("Nhập mã sản phẩm cần cập nhật: ");
-        String maSanPhamCanTim = scanner.nextLine();
-        sanPhamTimKiem = timKiemSanPhamTheoMa(sanPhams, maSanPhamCanTim);
-        // Tìm kiếm sản phẩm theo mã
+        String maSanPham = scanner.nextLine();
+        sanPhamTimKiem = timSanPhamTheoMa(danhSachSanPham, maSanPham);
 
-
-        // Nếu sản phẩm được tìm thấy
         if (sanPhamTimKiem != null) {
             System.out.println("Thông tin sản phẩm cần cập nhật:");
             System.out.println(sanPhamTimKiem.toString());
-
-            // Nhập và validate các giá trị mới cho sản phẩm
             String tenMoi = nhapTen(scanner, sanPhamTimKiem);
             double giaMoi = nhapGia(scanner);
             int soLuongMoi = nhapSoLuong(scanner);
-
-            System.out.println("Xác nhận cập nhật (Y): ");
-            String xacNhan = scanner.nextLine();
+           String xacNhan = xacNhanCapNhat();
             if (xacNhan.equalsIgnoreCase("y")) {
-                // Cập nhật thông tin cho sản phẩm
                 if (!tenMoi.isEmpty()) {
                     sanPhamTimKiem.setTenSP(tenMoi);
                 }
@@ -532,12 +525,9 @@ public class HeThong {
                     sanPhamTimKiem.setGiaSP(giaMoi);
                 }
                 if (soLuongMoi >= 0) {
-                    capNhatSoLuongSanPhamTrongKho(sanPhamTimKiem, soLuongMoi, kho.getDanhSachSanPham());
+                    capNhatSoLuongSanPhamTrongKho(sanPhamTimKiem, soLuongMoi, danhSachSanPham);
                 }
 
-                // Hiển thị thông tin sản phẩm sau khi cập nhật
-                //System.out.println("Thông tin sản phẩm sau khi cập nhật:");
-                //System.out.println(sanPhamTimKiem.toString() + "Số lương trong kho: " + soLuongMoi);
                 System.out.println("Nhấn Enter để thoát");
                 scanner.nextLine();
 
@@ -545,12 +535,11 @@ public class HeThong {
                 System.out.println("Hủy xác nhận cập nhật, nhấn Enter để thoát");
                 scanner.nextLine();
                 return;
-
             }
 
         } else {
-            System.out.println("Không tìm thấy sản phẩm có mã " + maSanPhamCanTim);
-            System.out.print("Nhập Enter để thoát: ");
+            System.out.println("Không tìm thấy sản phẩm có mã " + maSanPham);
+            System.out.print("Nhập Enter để thoát! ");
             scanner.nextLine();
             return;
         }
@@ -576,10 +565,12 @@ public class HeThong {
 
 
 
-    public SanPham timKiemSanPhamTheoMa(ArrayList<SanPham> sanPhams, String maSanPham) {
-        for (SanPham sanPham : sanPhams) {
-            if (sanPham.getMaSP().equals(maSanPham)) {
-                return sanPham;
+    public SanPham timSanPhamTheoMa(Map<SanPham, Integer> sanPhams, String maSanPham) {
+        for(SanPham sp : sanPhams.keySet())
+        {
+            if(sp.getMaSP().equals(maSanPham))
+            {
+                return sp;
             }
         }
         return null;
@@ -1238,10 +1229,11 @@ public class HeThong {
             return;
         }
         kho.hienThiDanhSachSanPham();
-        System.out.println("--1. Thêm sản phẩm vào kho");
-        System.out.println("--2. Cập Nhật Thông Tin Sản Phẩm ");
-        System.out.println("--3. Thoát");
+
         while (true) {
+            System.out.println("--1. Thêm sản phẩm vào kho");
+            System.out.println("--2. Cập Nhật Thông Tin Sản Phẩm ");
+            System.out.println("--3. Thoát");
             System.out.print("Chọn chức năng: ");
             int choice1 = scanner.nextInt();
             scanner.nextLine();
