@@ -414,7 +414,7 @@ public class HeThong {
 
     public void hienThiDanhSachDonHang(Scanner scanner) {
 
-        List<DonHang> donHangs = hienThiDanhSachDonHang();
+        List<DonHang> donHangs = DanhSachDonHang();
         for (DonHang donHang : donHangs) {
             System.out.println(donHang.toString());
         }
