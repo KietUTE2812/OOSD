@@ -1227,8 +1227,8 @@ public class HeThong {
 
     public boolean xacNhanThemSanPham(Scanner scanner) {
         System.out.print("Bạn có muốn thêm sản phẩm vào kho không? (Y/N): ");
-        String confirm = scanner.nextLine();
-        return confirm.equalsIgnoreCase("Y");
+        String xacNhan = scanner.nextLine();
+        return xacNhan.equalsIgnoreCase("Y");
     }
 
 
