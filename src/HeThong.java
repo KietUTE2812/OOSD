@@ -22,7 +22,7 @@ public class HeThong {
 
     public HeThong(){
         Scanner scanner = new Scanner(System.in);
-
+        KhachHang khachHang=new KhachHang(UserSession.getInstance().getMaKH(), UserSession.getInstance().getHoVaTen(),UserSession.getInstance().getsDT(), UserSession.getInstance().getDiaChi(), UserSession.getInstance().getDiaChi(), UserSession.getInstance().getTaiKhoan(), UserSession.getInstance().getMatKhau());
         GioHang gioHang =new GioHang();
         List<SanPhamTrongGioHang> danhSachSP = new ArrayList<>();
         danhSachSP.add(new SanPhamTrongGioHang("SP001", "Áo thun", 15.0, 2));
@@ -46,8 +46,13 @@ public class HeThong {
         // Lặp cho đến khi người dùng chọn chức năng Thoát
         while (true) {
             System.out.print("Chọn chức năng: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); // Đọc ký tự xuống dòng
+
+            int choice = 0;
+
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Đọc dòng trống sau khi nhập số
+            }
 
             switch (choice) {
                 case 1:
@@ -60,7 +65,7 @@ public class HeThong {
                     datHang(scanner);
                     break;
                 case 4:
-                    datHang(scanner);
+                    capNhatThongTinTaiKhoan(khachHang);
                     break;
                 case 5:
                     datHang(scanner);
@@ -79,6 +84,14 @@ public class HeThong {
 
     public HeThong(List<NhanVien> nhanVienList) {
         Scanner scanner = new Scanner(System.in);
+        NhanVien nhanVien=new NhanVien(UserSession.getInstance().getMaNV(),
+                UserSession.getInstance().getHoVaTen(),
+                UserSession.getInstance().getsDT(),
+                UserSession.getInstance().getEmail(),
+                UserSession.getInstance().getDiaChi(),
+                (byte)UserSession.getInstance().getRole(),
+                UserSession.getInstance().getTaiKhoan(),
+                UserSession.getInstance().getMatKhau());
         // Hiển thị menu cho người dùng
         while (true) {
             System.out.println("Menu:");
@@ -112,10 +125,10 @@ public class HeThong {
                     capNhatSanPham();
                     break;
                 case 4:
-                    capNhatSanPham();
+                    chinhsuaThongTinTaiKhoan(nhanVien);
                     break;
                 case 5:
-                    capNhatSanPham();
+                    capQuyenTruyCap(nhanVienList);
                     break;
                 case 6:
                     capNhatSanPham();
@@ -860,7 +873,185 @@ public class HeThong {
         scanner.nextLine();
         return;
     }
+    public static void capNhatThongTinTaiKhoan(KhachHang khachHang) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bạn đang thực hiện chức năng Đặt quyền truy cập cho nhân viên và yêu cầu người dùng nhấn Enter để tiếp tục");
+        scanner.nextLine();
+        // Hiển thị thông tin người dùng
+        System.out.println("Thông tin người dùng:");
+        // Hiển thị thông tin của người dùng ở đây
+        System.out.println("Họ và tên: " + khachHang.getHoVaTen());
+        System.out.println("Địa chỉ: " + khachHang.getDiaChi());
+        System.out.println("Số điện thoại: " + khachHang.getsDT());
+        System.out.println("Email: " + khachHang.getEmail());
+        // Hiển thị menu chỉnh sửa thông tin
+        System.out.println("Menu chỉnh sửa thông tin:");
+        System.out.println("1. Chỉnh sửa thông tin tài khoản");
+        System.out.println("2. Chỉnh sửa mật khẩu");
 
+        // Yêu cầu người dùng chọn chức năng
+        int choice;
+        do {
+            System.out.print("Nhập số để chọn chức năng (1 hoặc 2): ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại.");
+                scanner.next();
+            }
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Đọc ký tự thừa sau khi nhập số
+        } while (choice < 1 || choice > 2);
+
+        // Xử lý chọn chức năng
+        switch (choice) {
+            case 1:
+                // Thực hiện chức năng chỉnh sửa thông tin tài khoản
+                System.out.println("Bạn đang thực hiện chức năng Chỉnh sửa thông tin tài khoản và yêu cầu nhấn Enter để tiếp tục");
+                scanner.nextLine();
+                chinhsuaThongTinTaiKhoan(khachHang);
+                break;
+            case 2:
+                System.out.println("Bạn đang thực hiện chức năng Chỉnh sửa mật khẩu và yêu cầu nhấn Enter để tiếp tục");
+                scanner.nextLine();
+                chinhsuaMatKhau(khachHang);
+                break;
+            default:
+                System.out.println("Lựa chọn không hợp lệ.");
+                break;
+        }
+        System.out.println("Nhấn Enter để quay về Menu chính.");
+        scanner.nextLine();
+        return;
+    }
+    public static void chinhsuaThongTinTaiKhoan(KhachHang khachHang) {
+        Scanner scanner = new Scanner(System.in);
+        String hoVaTen = "", diaChi = "", soDienThoai = "", email = "";
+
+        // Hiển thị menu chỉnh sửa thông tin tài khoản
+        System.out.println("Menu chỉnh sửa thông tin tài khoản:");
+        System.out.println("1. Chỉnh sửa họ và tên");
+        System.out.println("2. Chỉnh sửa địa chỉ");
+        System.out.println("3. Chỉnh sửa số điện thoại");
+        System.out.println("4. Chỉnh sửa email");
+        System.out.println("5. Dừng cập nhật thông tin");
+
+        int choice;
+        do {
+            // Yêu cầu người dùng chọn loại thông tin để chỉnh sửa
+            System.out.print("Nhập số để chọn loại thông tin để chỉnh sửa (1-5): ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại.");
+                scanner.next();
+            }
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Đọc ký tự thừa sau khi nhập số
+
+            switch (choice) {
+                case 1:
+                    // Chỉnh sửa họ và tên
+                    System.out.print("Nhập họ và tên không chứa ký tự số hoặc đặc biệt: ");
+                    hoVaTen = scanner.nextLine();
+                    break;
+                case 2:
+                    // Chỉnh sửa địa chỉ
+                    System.out.print("Nhập địa chỉ: ");
+                    diaChi = scanner.nextLine();
+                    break;
+                case 3:
+                    // Chỉnh sửa số điện thoại
+                    System.out.print("Nhập số điện thoại: ");
+                    soDienThoai = scanner.nextLine();
+                    break;
+                case 4:
+                    // Chỉnh sửa email
+                    System.out.print("Nhập email (nhấn Enter để bỏ qua): ");
+                    email = scanner.nextLine();
+                    break;
+                case 5:
+                    // Dừng cập nhật thông tin
+                    System.out.println("Đã dừng cập nhật thông tin.");
+                    break;
+                default:
+                    System.out.println("Lựa chọn không hợp lệ.");
+            }
+        } while (choice != 5);
+
+        // Hiển thị thông tin vừa nhập
+        System.out.println("Thông tin vừa nhập:");
+        if (!hoVaTen.isEmpty()) {
+            System.out.println("Họ và tên: " + hoVaTen);
+        }
+        if (!diaChi.isEmpty()) {
+            System.out.println("Địa chỉ: " + diaChi);
+        }
+        if (!soDienThoai.isEmpty()) {
+            System.out.println("Số điện thoại: " + soDienThoai);
+        }
+        if (!email.isEmpty()) {
+            System.out.println("Email: " + email);
+        }
+
+        // Yêu cầu xác nhận lưu thông tin
+        System.out.print("Bạn có muốn lưu thông tin này không? (Y/N): ");
+        String confirm = scanner.nextLine();
+
+        // Xác nhận và hiển thị thông báo
+        if (confirm.equalsIgnoreCase("Y")) {
+            if (!hoVaTen.isEmpty())
+                khachHang.setHoVaTen(hoVaTen);
+
+            if (!diaChi.isEmpty()) {
+                khachHang.setDiaChi(diaChi);
+            }
+            if (!soDienThoai.isEmpty()) {
+                khachHang.setsDT(soDienThoai);
+            }
+            if (!email.isEmpty()) {
+                khachHang.setEmail(email);
+            }
+            System.out.println("Thông tin đã được cập nhật thành công.");
+            System.out.println("Họ và tên: " + khachHang.getHoVaTen());
+            System.out.println("Địa chỉ: " + khachHang.getDiaChi());
+            System.out.println("Số điện thoại: " + khachHang.getsDT());
+            System.out.println("Email: " + khachHang.getEmail());
+        } else {
+            System.out.println("Đã hủy bỏ thao tác.");
+        }
+        System.out.println("Nhấn Enter để quay về Menu chính.");
+        scanner.nextLine();
+        return;
+    }
+    public static void chinhsuaMatKhau(KhachHang khachHang) {
+        Scanner scanner = new Scanner(System.in);
+        String newPassword;
+        String confirmPassword;
+
+        do {
+            // Yêu cầu người dùng nhập mật khẩu mới
+            System.out.print("Nhập mật khẩu mới: ");
+            newPassword = scanner.nextLine();
+
+            // Yêu cầu người dùng xác nhận mật khẩu mới
+            System.out.print("Xác nhận mật khẩu mới: ");
+            confirmPassword = scanner.nextLine();
+
+            // Kiểm tra xác nhận mật khẩu
+            if (!newPassword.equals(confirmPassword)) {
+                System.out.println("Mật khẩu xác nhận không khớp. Vui lòng thử lại.");
+            }
+        } while (!newPassword.equals(confirmPassword));
+
+        // Cập nhật mật khẩu
+        khachHang.setMatKhau(newPassword);
+
+        // Hiển thị thông báo mật khẩu đã được cập nhật
+        System.out.println("Mật khẩu đã được cập nhật thành công.");
+
+        // Hiển thị mật khẩu vừa được cập nhật
+        System.out.println("Mật khẩu mới: " + khachHang.getMatKhau());
+        System.out.println("Nhấn Enter để quay về Menu chính.");
+        scanner.nextLine();
+        return;
+    }
 
     //---------
     public void themSanPhamVaoKho(Scanner scanner) {
