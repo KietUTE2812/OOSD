@@ -8,19 +8,15 @@ import java.util.Map;
 public class HeThong {
 
     private static ArrayList<SanPham> sanPhams = new ArrayList<>();
-    private static SanPham sp1 = new SanPham("SP001", "Laptop Dell", 18000000.0);
-    private static SanPham sp2 = new SanPham("SP002", "Laptop Asus", 15000000.0);
-    private static SanPham sp3 = new SanPham("SP003", "Laptop Lenovo", 200000000.0);
-    private static SanPham sp4 = new SanPham("SP004", "Laptop Macbook", 300000000.0);
+    Kho kho = new Kho();
+    SanPham sp1 = new SanPham("SP01", "Laptop Dell", 18000000.0);
+    SanPham sp2 = new SanPham("SP02", "Laptop Asus", 15000000.0);
+    SanPham sp3 = new SanPham("SP03", "Laptop Lenovo", 200000000.0);
+    SanPham sp4 = new SanPham("SP04", "Laptop Macbook", 300000000.0);
 
-
-//    private static ArrayList<Kho> khos = new ArrayList<>();
-//
-//    private static   Kho k1 = new Kho("SP001", 20);
-//    private static   Kho k2 = new Kho("SP002", 40);
-//    private static   Kho k3 = new Kho("SP003", 10);
 
     public HeThong(){
+
         Scanner scanner = new Scanner(System.in);
         KhachHang khachHang=new KhachHang(UserSession.getInstance().getMaKH(), UserSession.getInstance().getHoVaTen(),UserSession.getInstance().getsDT(), UserSession.getInstance().getDiaChi(), UserSession.getInstance().getDiaChi(), UserSession.getInstance().getTaiKhoan(), UserSession.getInstance().getMatKhau());
         GioHang gioHang =new GioHang();
@@ -84,6 +80,10 @@ public class HeThong {
                 (byte)UserSession.getInstance().getRole(),
                 UserSession.getInstance().getTaiKhoan(),
                 UserSession.getInstance().getMatKhau());
+        kho.themSanPham(sp1,12);
+        kho.themSanPham(sp2,20);
+        kho.themSanPham(sp3,25);
+        kho.themSanPham(sp4,30);
         // Hiển thị menu cho người dùng
         while (true) {
             System.out.println("Menu:");
@@ -108,13 +108,13 @@ public class HeThong {
             // Xử lý chọn chức năng
             switch (choice) {
                 case 1:
-                    capNhatSanPham();
+                    xemDanhSachSanPham(scanner);
                     break;
                 case 2:
                     capNhatSanPham();
                     break;
                 case 3:
-                    capNhatSanPham();
+                    themSanPhamVaoKho(scanner);
                     break;
                 case 4:
                     chinhsuaThongTinTaiKhoan(nhanVien);
@@ -388,8 +388,6 @@ public class HeThong {
     //-------------------------------------- cập nhật sản phẩm
     public void capNhatSanPham() {
         ArrayList<SanPham> sanPhams = DanhSachSanPham();
-        //ArrayList<Kho> khos = DanhSachSanPhamTrongKho();
-
         kho.hienThiDanhSachSanPham();
 
 
@@ -455,6 +453,7 @@ public class HeThong {
         sanPhams.add(sp1);
         sanPhams.add(sp2);
         sanPhams.add(sp3);
+        sanPhams.add(sp4);
 
         return sanPhams;
     }
@@ -1113,7 +1112,7 @@ public class HeThong {
         }
 
     }
-    private Kho kho = new Kho();
+
     public void xemDanhSachSanPham(Scanner scanner) {
         kho.hienThiDanhSachSanPham();
         System.out.println("--1. Thêm sản phẩm vào kho");
@@ -1129,7 +1128,7 @@ public class HeThong {
                     themSanPhamVaoKho(scanner);
                     break;
                 case 2:
-                    System.out.println("Cập Nhật Thông Tin Sản Phẩm");
+                    capNhatSanPham();
                     break;
                 case 3:
                     System.out.println("Thoát");
@@ -1139,4 +1138,5 @@ public class HeThong {
             }
         }
     }
+
 }
