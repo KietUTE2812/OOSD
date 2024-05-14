@@ -61,13 +61,16 @@ public class Main {
     }
 
     public static boolean checkDangNhap(String username, String pass) {
-        if (username.equals("admin") && pass.equals("123")) {
-           UserSession.getInstance().setRole((byte) 2);
-            return true;
-        }
         for (NhanVien nv : nhanVienList) {
             if (username.equals(nv.getTaiKhoan()) && pass.equals(nv.getMatKhau())) {
-                UserSession.getInstance().setRole((byte) 1);
+                UserSession.getInstance().setRole(nv.getQuyenTruyCap());
+                UserSession.getInstance().setMaNV(nv.getMaNV());
+                UserSession.getInstance().setDiaChi(nv.getTaiKhoan());
+                UserSession.getInstance().setMatKhau(nv.getMatKhau());
+                UserSession.getInstance().setDiaChi(nv.getDiaChi());
+                UserSession.getInstance().setEmail(nv.getEmail());
+                UserSession.getInstance().setsDT(nv.getsDT());
+
                 return true;
             }
         }
@@ -75,6 +78,12 @@ public class Main {
         {
             if (username.equals(kh.getTaiKhoan()) && pass.equals(kh.getMatKhau())) {
                 UserSession.getInstance().setRole((byte) 0);
+                UserSession.getInstance().setMaNV(kh.getMaKH());
+                UserSession.getInstance().setDiaChi(kh.getTaiKhoan());
+                UserSession.getInstance().setMatKhau(kh.getMatKhau());
+                UserSession.getInstance().setDiaChi(kh.getDiaChi());
+                UserSession.getInstance().setEmail(kh.getEmail());
+                UserSession.getInstance().setsDT(kh.getsDT());
                 return true;
             }
         }

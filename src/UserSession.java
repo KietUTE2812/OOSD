@@ -99,4 +99,5 @@ public class UserSession {
     public void setMaKH(String maKH) {
         MaKH = maKH;
     }
+
 }
