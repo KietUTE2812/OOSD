@@ -1,6 +1,8 @@
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,6 +14,19 @@ public class DonHang {
     private double tongTien;
     private String maThanhToan;
 
+    public double tinhTongTien()
+    {
+        double tongTien = 0;
+        for(SanPhamTrongGioHang sp : danhSachSP)
+        {
+            tongTien += sp.getSoLuong()*sp.getGiaSP();
+        }
+        return tongTien;
+    }
+    public void generateMaDH() {
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        maDH = "MaDH" + timeStamp;
+    }
     @Override
     public String toString() {
         String tt = "Đã Thanh Toán";
@@ -53,7 +68,6 @@ public class DonHang {
     }
 
 
-
     public LocalDate getNgayDH() {
         return ngayDH;
     }
@@ -73,6 +87,7 @@ public class DonHang {
 
 
     public double getTongTien() {
+        this.tongTien = tinhTongTien();
         return tongTien;
     }
 
@@ -85,6 +100,7 @@ public class DonHang {
 
 
     public DonHang() {
+        generateMaDH();
     }
 
 
@@ -98,4 +114,5 @@ public class DonHang {
         String ngayThangNam = ngay.format(dinhDang);
         return ngayThangNam;
     }
+
 }

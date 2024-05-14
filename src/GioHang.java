@@ -7,7 +7,13 @@ public class GioHang {
     private double tongTien;
     private String maKH;
 
-
+    public void hienGioHang()
+    {
+        for(SanPhamTrongGioHang sanPhamTrongGioHang : danhSachSP)
+        {
+            System.out.println(sanPhamTrongGioHang.toString());
+        }
+    }
 
     public void setMaGioHang(String maGioHang) {
         this.maGioHang = maGioHang;
@@ -19,7 +25,9 @@ public class GioHang {
         this.maKH = maKH;
     }
 
-    public GioHang() {}
+    public GioHang() {
+        this.danhSachSP = new ArrayList<>();
+    }
 
     public List<SanPhamTrongGioHang> getDanhSachSP() {
         return danhSachSP;
@@ -54,4 +62,7 @@ public class GioHang {
     }
 
 
+    public void themSP(SanPhamTrongGioHang sp) {
+        danhSachSP.add(sp);
+    }
 }
