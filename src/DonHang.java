@@ -49,6 +49,14 @@ public class DonHang {
         this.maKH = maKH;
     }
 
+    public String getMaKH() {
+        return maKH;
+    }
+
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
+    }
+
     public void add(SanPhamTrongGioHang s) {
         danhSachSP.add(s);
     }

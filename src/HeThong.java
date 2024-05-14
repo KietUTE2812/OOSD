@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Map;
 
 public class HeThong {
 
@@ -31,19 +32,16 @@ public class HeThong {
         gioHang.setMaGioHang("ma12");
 
 
-
-
-        // Menu hiển thị các chức năng
-        System.out.println("Menu:");
-        System.out.println("1. Xem sản phẩm");
-        System.out.println("2. Xem giỏ hàng");
-        System.out.println("3. Xem danh sách đơn hàng");
-        System.out.println("4. Chỉnh sửa tài khoản");
-        System.out.println("5. Đăng xuất");
-        System.out.println("0. Thoát");
-
         // Lặp cho đến khi người dùng chọn chức năng Thoát
         while (true) {
+            // Menu hiển thị các chức năng
+            System.out.println("Menu:");
+            System.out.println("1. Xem sản phẩm");
+            System.out.println("2. Xem giỏ hàng");
+            System.out.println("3. Xem danh sách đơn hàng");
+            System.out.println("4. Chỉnh sửa tài khoản");
+            System.out.println("5. Đăng xuất");
+            System.out.println("0. Thoát");
             System.out.print("Chọn chức năng: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Đọc ký tự xuống dòng
@@ -56,7 +54,7 @@ public class HeThong {
                     menuGioHang(scanner);
                     break;
                 case 3:
-                    datHang(scanner);
+                    hienThiDanhSachDonHang( scanner);
                     break;
                 case 4:
                     capNhatThongTinTaiKhoan(khachHang);
@@ -305,10 +303,11 @@ public class HeThong {
         }
     }
 
-    public void danhSachDonHang(Scanner scanner) {
+    public void hienThiDanhSachDonHang(Scanner scanner) {
 
-        List<DonHang> donHangs = hienThiDanhSachDonHang();
+        List<DonHang> donHangs = DanhSachDonHang();
         for (DonHang donHang : donHangs) {
+
             System.out.println(donHang.toString());
         }
 
@@ -317,13 +316,22 @@ public class HeThong {
 
 
     //--------------------------------------------------------
-    public List<DonHang> hienThiDanhSachDonHang() {
+    public List<DonHang> DanhSachDonHang() {
         List<DonHang> danhSachDonHang = new ArrayList<>();
         // Thêm các đơn hàng mẫu vào danh sách
-        danhSachDonHang.add(new DonHang("DH001", LocalDate.of(2024, 4, 12), true, new ArrayList<>(), 250.0, "TT001"));
-        danhSachDonHang.add(new DonHang("DH002", LocalDate.of(2024, 4, 13), false, new ArrayList<>(), 300.0, "TT002"));
-        danhSachDonHang.add(new DonHang("DH003", LocalDate.of(2024, 4, 14), true, new ArrayList<>(), 400.0, "TT003"));
-        return danhSachDonHang;
+        danhSachDonHang.add(new DonHang("DH001", LocalDate.of(2024, 4, 12), true, new ArrayList<>(), 250.0, "TT001", "KH001"));
+        danhSachDonHang.add(new DonHang("DH002", LocalDate.of(2024, 4, 13), false, new ArrayList<>(), 300.0, "TT002", "KH001"));
+        danhSachDonHang.add(new DonHang("DH003", LocalDate.of(2024, 4, 14), true, new ArrayList<>(), 400.0, "TT003", "KH002"));
+
+        List<DonHang> danhSachDonHangTheoMaKH = new ArrayList<>();
+        for(DonHang dh : danhSachDonHang)
+        {
+            if(UserSession.getInstance().getMaKH().equals(dh.getMaKH()))
+            {
+                danhSachDonHangTheoMaKH.add(dh);
+            }
+        }
+        return danhSachDonHangTheoMaKH;
     }
 
     public DonHang getDonHanginListDonHang(String maDonHang, List<DonHang> danhSachDonHang) {
@@ -337,7 +345,7 @@ public class HeThong {
     }
 
     public void xemChiTietDonHang(Scanner scanner) {
-        List<DonHang> danhSachDonHang = hienThiDanhSachDonHang();
+        List<DonHang> danhSachDonHang = DanhSachDonHang();
 
         // Nhập mã đơn hàng từ người dùng
         System.out.print("Nhập mã đơn hàng để xem chi tiết hoặc nhấn phím 'q' để thoát: ");
