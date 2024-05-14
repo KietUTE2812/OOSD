@@ -37,7 +37,7 @@ public class Main {
             System.out.println("Vai trò không hợp lệ");
         }
 
-        HeThong ht = new HeThong(nhanVienList);
+        //HeThong ht = new HeThong(nhanVienList);
 
     }
 

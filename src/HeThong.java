@@ -74,6 +74,59 @@ public class HeThong {
             }
         }
     }
+
+    public HeThong(List<NhanVien> nhanVienList) {
+        Scanner scanner = new Scanner(System.in);
+        // Hiển thị menu cho người dùng
+        while (true) {
+            System.out.println("Menu:");
+            System.out.println("1. Xem sản phẩm");
+            System.out.println("2. Cập nhật sản phẩm");
+            System.out.println("3. Thêm sản phẩm vào kho");
+            System.out.println("4. Chỉnh sửa tài khoản");
+            System.out.println("5. Cấp quyền truy cập");
+            System.out.println("6. Đăng xuất");
+            System.out.println("0. Thoát");
+            // Yêu cầu người dùng chọn chức năng
+            int choice;
+            do {
+                System.out.print("Nhập số để chọn chức năng : ");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Lựa chọn không hợp lệ. Vui lòng nhập lại.");
+                    scanner.next();
+                }
+                choice = scanner.nextInt();
+                scanner.nextLine(); // Đọc ký tự thừa sau khi nhập số
+            } while (choice < 0 || choice > 6);
+            // Xử lý chọn chức năng
+            switch (choice) {
+                case 1:
+                    capNhatSanPham();
+                    break;
+                case 2:
+                    capNhatSanPham();
+                    break;
+                case 3:
+                    capNhatSanPham();
+                    break;
+                case 4:
+                    capNhatSanPham();
+                    break;
+                case 5:
+                    capNhatSanPham();
+                    break;
+                case 6:
+                    capNhatSanPham();
+                    break;
+                case 0:
+                    System.out.println("Thoát chương trình.");
+                    return;
+                default:
+                    System.out.println("Chức năng không hợp lệ.");
+            }
+        }
+    }
+
     public void datHang(Scanner scanner) {
         // Bước 2: Nhập các mã sản phẩm cần mua  ||  nhapSP()
         System.out.println("Nhập các mã sản phẩm cần mua (cách nhau bằng dấu ','): ");
@@ -804,5 +857,91 @@ public class HeThong {
         System.out.println("Nhấn Enter để quay về Menu chính.");
         scanner.nextLine();
         return;
+    }
+
+
+    //---------
+    public void themSanPhamVaoKho(Scanner scanner) {
+        System.out.println("Thêm sản phẩm vào kho:");
+
+        // Yêu cầu nhập mã sản phẩm hợp lệ
+        String maSP;
+        do {
+            System.out.print("Nhập mã sản phẩm (4 ký tự không có ký tự đặc biệt): ");
+            maSP = scanner.nextLine();
+        } while (!maSP.matches("[a-zA-Z0-9]{4}"));
+
+        // Yêu cầu nhập tên sản phẩm không chứa ký tự đặc biệt
+        String tenSP;
+        do {
+            System.out.print("Nhập tên sản phẩm (không chứa ký tự đặc biệt): ");
+            tenSP = scanner.nextLine();
+        } while (!tenSP.matches("[a-zA-Z0-9\\s]+"));
+
+        // Yêu cầu nhập giá sản phẩm không âm
+        double giaSP;
+        do {
+            System.out.print("Nhập giá sản phẩm (không âm): ");
+            giaSP = scanner.nextDouble();
+            scanner.nextLine(); // Đọc ký tự xuống dòng
+        } while (giaSP < 0);
+
+        // Yêu cầu nhập số lượng sản phẩm không âm
+        int soLuong;
+        do {
+            System.out.print("Nhập số lượng sản phẩm (không âm): ");
+            soLuong = scanner.nextInt();
+            scanner.nextLine(); // Đọc ký tự xuống dòng
+        } while (soLuong < 0);
+
+        // Tạo đối tượng sản phẩm mới
+        SanPham sanPham = new SanPham(maSP, tenSP, giaSP);
+
+        // Hiển thị thông tin sản phẩm mới
+        System.out.println("Thông tin sản phẩm mới:");
+        System.out.println("Mã sản phẩm: " + sanPham.getMaSP());
+        System.out.println("Tên sản phẩm: " + sanPham.getTenSP());
+        System.out.println("Giá sản phẩm: " + sanPham.getGiaSP());
+        System.out.println("Số lượng sản phẩm: " + soLuong);
+
+        //Chương trinh hỏi người dunng có xác nhận thêm sản phẩm vào kho
+        System.out.print("Bạn có muốn thêm sản phẩm vào kho không? (Y/N): ");
+        String confirm = scanner.nextLine();
+
+        if (confirm.equalsIgnoreCase("Y")) {
+            kho.themSanPham(sanPham, soLuong);
+            System.out.println("Sản phẩm đã được thêm vào kho thành công.");
+        } else if (confirm.equalsIgnoreCase("N")) {
+            System.out.println("Không thêm sản phẩm vào kho.");
+        } else {
+            System.out.println("Lựa chọn không hợp lệ. Không thêm sản phẩm vào kho.");
+        }
+
+    }
+    private Kho kho;
+    public void xemDanhSachSanPham(Scanner scanner) {
+        kho.hienThiDanhSachSanPham();
+        System.out.println("--1. Thêm sản phẩm vào kho");
+        System.out.println("--2. Cập Nhật Thông Tin Sản Phẩm ");
+        System.out.println("--3. Thoát");
+        while (true) {
+            System.out.print("Chọn chức năng: ");
+            int choice1 = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice1) {
+                case 1:
+                    themSanPhamVaoKho(scanner);
+                    break;
+                case 2:
+                    System.out.println("Cập Nhật Thông Tin Sản Phẩm");
+                    break;
+                case 3:
+                    System.out.println("Thoát");
+                    return;
+                default:
+                    System.out.println("Chức năng không hợp lệ.");
+            }
+        }
     }
 }
